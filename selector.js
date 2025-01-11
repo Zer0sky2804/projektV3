@@ -1,25 +1,50 @@
-// Get the modal
+// Ovládání modalu
 var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
 var btn = document.getElementById("modalBtn");
-
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
+btn.onclick = function () {
     modal.style.display = "block";
-}
+};
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+span.onclick = function () {
     modal.style.display = "none";
-}
+};
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
+    }
+};
+
+// Funkce pro načtení externí stránky
+function loadPage(page) {
+    const contentDisplay = document.getElementById("content-display");
+
+    // Fetch API pro načtení obsahu stránky
+    fetch(page)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP chyba! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // Vložení načteného HTML do sekce content-display
+            contentDisplay.innerHTML = html;
+        })
+        .catch(error => {
+            contentDisplay.innerHTML = `<p style="color: red;">Chyba při načítání stránky: ${error.message}</p>`;
+        });
+}
+
+// Obsah pro ostatní tlačítka
+function showContent(contentId) {
+    const contentDisplay = document.getElementById("content-display");
+
+    if (contentId === "content2") {
+        contentDisplay.innerHTML = "<p>Obsah pro tlačítko 2</p>";
+    } else if (contentId === "content3") {
+        contentDisplay.innerHTML = "<p>Obsah pro tlačítko 3</p>";
     }
 }

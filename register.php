@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$databasename = "projekt";
+$databasename = "projektV3";
 
 $conn = new mysqli($servername, $username, $password, $databasename);
 
@@ -35,11 +35,11 @@ $sql = "INSERT INTO users (nickname, password, email) VALUES ('$nickname', '$has
 
 if ($conn->query($sql) === TRUE) {
     echo "<script> alert('Registrace proběhla úspěšně.') </script>";
-    echo "<script> window.location.href = 'admin.html'; </script>";
+    echo "<script> window.location.href = 'selector.html'; </script>";
     
 } else {
     echo "<script> alert('Registrace se nezdařila.') </script>";
-    echo "<script> window.location.href = 'admin.html'; </script>";
+    echo "<script> window.location.href = 'selector.html'; </script>";
 }
 }
 $conn->close();
