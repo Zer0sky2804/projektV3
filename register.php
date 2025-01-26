@@ -2,12 +2,12 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$databasename = "projektV3";
+$databasename = "projektv3";
 
 $conn = new mysqli($servername, $username, $password, $databasename);
 
 if ($conn->connect_error) {
-    die("Something went wrong. Please try again latter.: " . $conn->connect_error);
+    die("Něco se pokazilo. Zkuste to prosím později.: " . $conn->connect_error);
 }
 
 $password = $_POST["password"];

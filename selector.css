@@ -82,6 +82,7 @@ button:hover {
 
 .content-display {
     width: 75%;
+    height: 50%;
     padding-top: 20px;
     text-align: left;
     display: flex;

@@ -1,3 +1,19 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "projektv3";
+
+$conn = new mysqli($servername, $username, $password, $database);
+
+if ($conn->connect_error) {
+    die("Připojení k databázi selhalo: " . $conn->connect_error);
+}
+
+$sql = "SELECT nickname, email FROM users";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +26,21 @@
     <div class="table">
         <div class="header">
             <h2>Již přidaní uživatelé</h2>
-            <button id="modalBtn" class="open-modal-btn">Přidat uživatele</button>
+            <button id="modalBtn" onclick="alert('test');" class="open-modal-btn">Přidat uživatele</button>
         </div>
         <div class="content">
-            
-            
+            <?php if ($result && $result->num_rows > 0): ?>
+                <ul class="user-list">
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <li>
+                            <strong>Jméno:</strong> <?php echo htmlspecialchars($row['nickname']); ?> <br>
+                            <strong>Email:</strong> <?php echo htmlspecialchars($row['email']); ?>
+                        </li>
+                    <?php endwhile; ?>
+                </ul>
+            <?php else: ?>
+                <p>Žádní uživatelé nebyli nalezeni.</p>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -38,3 +64,7 @@
     <script src="modal.js"></script>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>
