@@ -8,8 +8,11 @@
     <script>
         function updateTitle() {
             let title = document.getElementById("main-title").value;
+            let messageBox = document.getElementById("message-box");
+
             if (title.trim() === "") {
-                alert("Nadpis nemůže být prázdný!");
+                messageBox.innerHTML = "⚠️ Nadpis nemůže být prázdný!";
+                messageBox.style.color = "red";
                 return;
             }
 
@@ -17,14 +20,21 @@
             xhr.open("POST", "update_title.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    alert(xhr.responseText);
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        messageBox.innerHTML = "✅ Nadpis byl úspěšně aktualizován!";
+                        messageBox.style.color = "green";
+                    } else {
+                        messageBox.innerHTML = "❌ Chyba při aktualizaci.";
+                        messageBox.style.color = "red";
+                    }
                 }
             };
             xhr.send("title=" + encodeURIComponent(title));
         }
     </script>
 </head>
+
 <body>
     <div class="table">
         <div class="section">
@@ -34,6 +44,7 @@
                 <button>OK</button>
             </div>
         </div>
+        
         <div class="section">
             <h3>Keywords</h3>
             <div class="input-container">
@@ -41,18 +52,25 @@
                 <button>OK</button>
             </div>
         </div>
+
         <div class="section">
             <h3>Hlavní stránka</h3>
             <div class="input-container">
-                <input type="text" id="main-title" placeholder="Zadejte nadpis">
+                <?php
+                include 'load_title.php'; 
+                ?>
+                <input type="text" id="main-title" value="<?= htmlspecialchars($currentTitle) ?>" placeholder="Zadejte nadpis">
                 <button onclick="updateTitle()">OK</button>
+                <p id="message-box"></p> 
             </div>
         </div>
 
-        <!-- Sekce pro výběr obrázku -->
-        <div class="input-container">
-            <input type="file" id="image-upload" accept="image/*">
-            <button>Nahrát</button>
+        <div class="section">
+            <h3>Nahrát obrázek</h3>
+            <div class="input-container">
+                <input type="file" id="image-upload" accept="image/*">
+                <button>Nahrát</button>
+            </div>
         </div>
     </div>
 </body>
