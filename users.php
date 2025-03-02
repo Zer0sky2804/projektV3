@@ -10,7 +10,21 @@ if ($conn->connect_error) {
     die("Připojení k databázi selhalo: " . $conn->connect_error);
 }
 
-$sql = "SELECT nickname, email FROM users";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
+    $user_id = intval($_POST['user_id']);
+    $nickname = $_POST['nickname'];
+    $email = $_POST['email'];
+    $sql = "UPDATE users SET nickname = ?, email = ? WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $nickname, $email, $user_id);
+    if ($stmt->execute()) {
+        echo "Uživatel byl úspěšně upraven.";
+    } else {
+        echo "Chyba při úpravě uživatele: " . $conn->error;
+    }
+}
+
+$sql = "SELECT user_id, nickname, email FROM users";
 $result = $conn->query($sql);
 ?>
 
@@ -26,7 +40,7 @@ $result = $conn->query($sql);
     <div class="table">
         <div class="header">
             <h2>Již přidaní uživatelé</h2>
-            <button id="modalBtn" onclick="alert('test');" class="open-modal-btn">Přidat uživatele</button>
+            <button id="addUserBtn" class="open-modal-btn">Přidat uživatele</button>
         </div>
         <div class="content">
             <?php if ($result && $result->num_rows > 0): ?>
@@ -34,7 +48,9 @@ $result = $conn->query($sql);
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <li>
                             <strong>Jméno:</strong> <?php echo htmlspecialchars($row['nickname']); ?> <br>
-                            <strong>Email:</strong> <?php echo htmlspecialchars($row['email']); ?>
+                            <strong>Email:</strong> <?php echo htmlspecialchars($row['email']); ?> <br>
+                            <button class="edit-btn" onclick="openEditModal(<?php echo $row['user_id']; ?>, '<?php echo htmlspecialchars($row['nickname']); ?>', '<?php echo htmlspecialchars($row['email']); ?>')">Upravit</button>
+                            <button class="delete-btn" onclick="deleteUser(<?php echo $row['user_id']; ?>)">Smazat</button>
                         </li>
                     <?php endwhile; ?>
                 </ul>
@@ -44,12 +60,26 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-    <!-- Modální okno -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <form method="POST">
+                <h2>Upravit uživatele</h2>
+                <input type="hidden" id="edit_user_id" name="user_id">
+                <label for="edit_nickname">Jméno:</label><br>
+                <input type="text" id="edit_nickname" name="nickname" required><br>
+                <label for="edit_email">Email:</label><br>
+                <input type="email" id="edit_email" name="email" required><br>
+                <button type="submit">Uložit změny</button>
+            </form>
+        </div>
+    </div>
+
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <form id="login-form" name="login-form" action="register.php" method="POST">
-                <h2>Přidání uživatele</h2>
+            <span class="close" id="closeAddUserModal">&times;</span>
+            <form id="addUserForm" action="register.php" method="POST">
+                <h2>Přidat uživatele</h2>
                 <label for="nickname">Jméno:</label><br>
                 <input type="text" id="nickname" name="nickname" required><br>
                 <label for="email">Email:</label><br>
@@ -61,7 +91,36 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-    <script src="modal.js"></script>
+    <script>
+        var addUserModal = document.getElementById("myModal");
+        var addUserBtn = document.getElementById("addUserBtn");
+        var closeAddUserModal = document.getElementById("closeAddUserModal");
+
+        addUserBtn.onclick = function() {
+            addUserModal.style.display = "block";
+        }
+
+        closeAddUserModal.onclick = function() {
+            addUserModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == addUserModal) {
+                addUserModal.style.display = "none";
+            }
+        }
+
+        function openEditModal(userId, nickname, email) {
+            document.getElementById('edit_user_id').value = userId;
+            document.getElementById('edit_nickname').value = nickname;
+            document.getElementById('edit_email').value = email;
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
 

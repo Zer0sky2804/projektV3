@@ -32,13 +32,34 @@
             };
             xhr.send("title=" + encodeURIComponent(title));
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('upload-button').addEventListener('click', function() {
+                let fileInput = document.getElementById('image-upload');
+                let file = fileInput.files[0];
+                if (!file) {
+                    alert('Prosím, vyberte soubor!');
+                    return;
+                }
+
+                let formData = new FormData();
+                formData.append('image', file);
+
+                fetch('upload_image_db.php', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.text())
+                  .then(data => alert(data))
+                  .catch(error => console.error('Chyba:', error));
+            });
+        });
     </script>
 </head>
 
 <body>
     <div class="table">
         <div class="section">
-            <h3>Heading 1</h3>
+            <h3>Description</h3>
             <div class="input-container">
                 <input type="text" placeholder="Textbox 1">
                 <button>OK</button>
@@ -49,6 +70,14 @@
             <h3>Keywords</h3>
             <div class="input-container">
                 <input type="text" placeholder="Textbox 2">
+                <button>OK</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Title</h3>
+            <div class="input-container">
+                <input type="text" placeholder="Textbox 1">
                 <button>OK</button>
             </div>
         </div>
@@ -69,7 +98,7 @@
             <h3>Nahrát obrázek</h3>
             <div class="input-container">
                 <input type="file" id="image-upload" accept="image/*">
-                <button>Nahrát</button>
+                <button id="upload-button">Nahrát</button>
             </div>
         </div>
     </div>

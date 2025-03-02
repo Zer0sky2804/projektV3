@@ -24,6 +24,7 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -35,5 +36,20 @@ $conn->close();
 <body>
     <div class="background" style="background-image: url('pictures/<?php echo $image; ?>');"></div>
     <div class="title"><?php echo $nadpis; ?></div>
+
+    <button class="menu-button" onclick="toggleSidenav()">Menu</button>
+
+    <div class="sidenav" id="sidenav">
+        <a href="#">Aktuality</a>
+        <a href="#">Články</a>
+        <a href="#">Galerie</a>
+    </div>
+
+    <script>
+        function toggleSidenav() {
+            const sidenav = document.getElementById('sidenav');
+            sidenav.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>

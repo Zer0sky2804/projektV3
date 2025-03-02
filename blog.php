@@ -4,15 +4,12 @@ $username = "root";
 $password = "";
 $database = "projektv3";
 
-// Připojení k databázi
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Kontrola připojení
 if ($conn->connect_error) {
     die("Připojení k databázi selhalo: " . $conn->connect_error);
 }
 
-// Dotaz na získání názvů článků
 $sql = "SELECT title FROM blog";
 $result = $conn->query($sql);
 ?>
@@ -27,19 +24,17 @@ $result = $conn->query($sql);
 </head>
 <body>
     <div class="table">
-        <!-- Nadpis a tlačítko ve stejném divu -->
         <div class="header">
             <h2>Již přidané články</h2>
             <button id="modalBtn" class="open-modal-btn">Přidat článek</button>
         </div>
-        
-        <!-- Výpis článků -->
+ 
         <div class="content">
             <?php if ($result && $result->num_rows > 0): ?>
                 <ul class="article-list">
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <li>
-                            <strong>Nadpis:</strong> <?php echo htmlspecialchars($row['title']); ?>
+                             <?php echo htmlspecialchars($row['title']); ?>
                         </li>
                     <?php endwhile; ?>
                 </ul>
@@ -49,7 +44,6 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-    <!-- Modální okno -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
