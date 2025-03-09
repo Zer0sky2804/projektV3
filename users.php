@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssi", $nickname, $email, $user_id);
     if ($stmt->execute()) {
-        echo "Uživatel byl úspěšně upraven.";
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
     } else {
         echo "Chyba při úpravě uživatele: " . $conn->error;
     }
@@ -47,10 +48,16 @@ $result = $conn->query($sql);
                 <ul class="user-list">
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <li>
-                            <strong>Jméno:</strong> <?php echo htmlspecialchars($row['nickname']); ?> <br>
-                            <strong>Email:</strong> <?php echo htmlspecialchars($row['email']); ?> <br>
-                            <button class="edit-btn" onclick="openEditModal(<?php echo $row['user_id']; ?>, '<?php echo htmlspecialchars($row['nickname']); ?>', '<?php echo htmlspecialchars($row['email']); ?>')">Upravit</button>
-                            <button class="delete-btn" onclick="deleteUser(<?php echo $row['user_id']; ?>)">Smazat</button>
+                        <div class="user-container">
+                                <div class="user-info">
+                                    <strong>Jméno:</strong> <?php echo htmlspecialchars($row['nickname']); ?><br>
+                                    <strong>Email:</strong> <?php echo htmlspecialchars($row['email']); ?>
+                                </div>
+                                <div class="user-actions">
+                                    <button class="edit-btn" onclick="openEditModal(<?php echo $row['user_id']; ?>, '<?php echo htmlspecialchars($row['nickname']); ?>', '<?php echo htmlspecialchars($row['email']); ?>')">Upravit</button>
+                                    <button class="delete-btn" onclick="deleteUser(<?php echo $row['user_id']; ?>)">Smazat</button>
+                                </div>
+                            </div>
                         </li>
                     <?php endwhile; ?>
                 </ul>
@@ -60,6 +67,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 
+    <!-- Edit Modal -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEditModal()">&times;</span>
@@ -75,6 +83,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 
+    <!-- Add User Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeAddUserModal">&times;</span>

@@ -102,8 +102,27 @@ body {
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #e0e0e0;
+}
+
+.user-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.user-info {
+    display: block;
+    flex-direction: column;
+    text-align: left;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
 }
 
 .user-list li strong {

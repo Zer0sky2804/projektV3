@@ -188,3 +188,50 @@ input[type="file"]::-webkit-file-upload-button:hover {
     background-color: #4cae4c;
 }
 
+.posts-container {
+    padding: 20px;
+    border-top: 1px solid #333;
+    background-color: #222;
+    border-radius: 5px;
+}
+.post{
+    background-color: #2e2e2e;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    text-align: left;
+    color: #e0e0e0;
+}
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+.edit-btn {
+    background-color: #2196F3;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.edit-btn:hover {
+    opacity: 0.8;
+}
+
+.delete-btn:hover {
+    opacity: 0.8;
+}
+.post-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 95%;
+}
