@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Ned 26. led 2025, 16:51
+-- Vytvořeno: Pát 14. bře 2025, 11:44
 -- Verze serveru: 10.4.32-MariaDB
 -- Verze PHP: 8.2.12
 
@@ -31,9 +31,15 @@ CREATE TABLE `blog` (
   `blog_id` int(11) NOT NULL,
   `title` varchar(40) NOT NULL,
   `text` text NOT NULL,
-  `user_id` int(11) NOT NULL,
   `nazev-obr` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Vypisuji data pro tabulku `blog`
+--
+
+INSERT INTO `blog` (`blog_id`, `title`, `text`, `nazev-obr`) VALUES
+(2, '1pokus', 'tohle je první pokus', '');
 
 --
 -- Indexy pro exportované tabulky
@@ -53,7 +59,7 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT pro tabulku `blog`
 --
 ALTER TABLE `blog`
-  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `blog_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

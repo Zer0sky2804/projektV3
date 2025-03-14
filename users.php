@@ -10,7 +10,8 @@ if ($conn->connect_error) {
     die("Připojení k databázi selhalo: " . $conn->connect_error);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
+// Úprava uživatele
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id']) && isset($_POST['nickname']) && isset($_POST['email'])) {
     $user_id = intval($_POST['user_id']);
     $nickname = $_POST['nickname'];
     $email = $_POST['email'];
@@ -22,6 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
         exit();
     } else {
         echo "Chyba při úpravě uživatele: " . $conn->error;
+    }
+}
+
+// Mazání uživatele
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['user_id'])) {
+    $user_id = intval($_POST['user_id']);
+    $sql = "DELETE FROM users WHERE user_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    if ($stmt->execute()) {
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    } else {
+        echo "Chyba při mazání uživatele: " . $conn->error;
     }
 }
 
@@ -128,6 +143,29 @@ $result = $conn->query($sql);
 
         function closeEditModal() {
             document.getElementById('editModal').style.display = 'none';
+        }
+
+        function deleteUser(userId) {
+            if (confirm('Opravdu chcete smazat tohoto uživatele?')) {
+                var form = document.createElement('form');
+                form.method = 'post';
+                form.action = '<?php echo $_SERVER['PHP_SELF']; ?>';
+
+                var actionField = document.createElement('input');
+                actionField.type = 'hidden';
+                actionField.name = 'action';
+                actionField.value = 'delete';
+                form.appendChild(actionField);
+
+                var userField = document.createElement('input');
+                userField.type = 'hidden';
+                userField.name = 'user_id';
+                userField.value = userId;
+                form.appendChild(userField);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
         }
     </script>
 </body>

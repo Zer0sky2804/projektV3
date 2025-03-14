@@ -28,18 +28,20 @@ $result_check_nickname = $conn->query($sql_check_nickname);
 
 if ($result_check_email->num_rows > 0) {
     echo "<script> alert('Zadaný email je již registraván.') </script>";
+    echo "<script> window.location.href = 'selector.php'; </script>";
 } elseif ($result_check_nickname->num_rows > 0) {
     echo "<script> alert('Použijte jinou přezdívku.') </script>";
+    echo "<script> window.location.href = 'selector.php'; </script>";
 } else {
 $sql = "INSERT INTO users (nickname, password, email) VALUES ('$nickname', '$hashed_password', '$email')";
 
 if ($conn->query($sql) === TRUE) {
     echo "<script> alert('Registrace proběhla úspěšně.') </script>";
-    echo "<script> window.location.href = 'selector.html'; </script>";
+    echo "<script> window.location.href = 'selector.php'; </script>";
     
 } else {
     echo "<script> alert('Registrace se nezdařila.') </script>";
-    echo "<script> window.location.href = 'selector.html'; </script>";
+    echo "<script> window.location.href = 'selector.php'; </script>";
 }
 }
 $conn->close();

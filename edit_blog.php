@@ -10,24 +10,40 @@ if ($conn->connect_error) {
     die("Připojení k databázi selhalo: " . $conn->connect_error);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = intval($_POST['blog-id']);
-    $newTitle = $conn->real_escape_string($_POST['blog-title']);
-    $newContent = $conn->real_escape_string($_POST['blog-content']);
+$blogId = $_POST['blog-id'];
+$title = $_POST['blog-title'];
+$content = $_POST['blog-content'];
+$imageName = "";
 
-    $updateSql = "UPDATE blog SET title = ?, text = ? WHERE blog_id = ?";
-    $updateStmt = $conn->prepare($updateSql);
-    $updateStmt->bind_param("ssi", $newTitle, $newContent, $id);
+// Zpracování nahrávání nového obrázku (pokud byl přidán)
+if (isset($_FILES['blog-image']) && $_FILES['blog-image']['error'] == 0) {
+    $targetDir = "blog_pics/";
+    $imageName = basename($_FILES['blog-image']['name']);
+    $targetFile = $targetDir . $imageName;
 
-    if ($updateStmt->execute()) {
-        echo "Článek byl úspěšně aktualizován.";
-    } else {
-        echo "Chyba při aktualizaci článku: " . $conn->error;
+    if (!move_uploaded_file($_FILES['blog-image']['tmp_name'], $targetFile)) {
+        die("Chyba při nahrávání obrázku.");
     }
 
-    $updateStmt->close();
+    // Aktualizace článku včetně nového obrázku
+    $sql = "UPDATE blog SET title = ?, text = ?, `nazev-obr` = ? WHERE blog_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssi", $title, $content, $imageName, $blogId);
+} else {
+    // Aktualizace článku bez změny obrázku
+    $sql = "UPDATE blog SET title = ?, text = ? WHERE blog_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $title, $content, $blogId);
 }
+
+if ($stmt->execute()) {
+    // Přesměrování zpět na hlavní stránku
+    header("Location: " . $_SERVER['HTTP_REFERER']);
+    exit();
+} else {
+    echo "Chyba: " . $stmt->error;
+}
+
+$stmt->close();
 $conn->close();
-header("Location: selector.php");
-exit();
 ?>

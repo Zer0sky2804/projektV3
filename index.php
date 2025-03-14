@@ -40,8 +40,8 @@ $conn->close();
     <button class="menu-button" onclick="toggleSidenav()">Menu</button>
 
     <div class="sidenav" id="sidenav">
-        <a href="#">Aktuality</a>
-        <a href="#">Články</a>
+        <a href="aktuality_bs.php">Aktuality</a>
+        <a href="blog_bs.php">Blog</a>
         <a href="#">Galerie</a>
     </div>
 
