@@ -22,10 +22,10 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if (xhr.status == 200) {
-                        messageBox.innerHTML = "✅ Nadpis byl úspěšně aktualizován!";
+                        messageBox.innerHTML = "Nadpis byl úspěšně aktualizován!";
                         messageBox.style.color = "green";
                     } else {
-                        messageBox.innerHTML = "❌ Chyba při aktualizaci.";
+                        messageBox.innerHTML = "Chyba při aktualizaci.";
                         messageBox.style.color = "red";
                     }
                 }

@@ -203,23 +203,25 @@ input[type="file"]::-webkit-file-upload-button:hover {
     color: #e0e0e0;
 }
 .edit-btn, .delete-btn {
-    padding: 5px 10px;
+    padding: 10px 20px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     color: white;
+    margin: 5px;
 }
-.button-group {
-    display: flex;
-    gap: 10px;
-}
+
 .edit-btn {
     background-color: #2196F3;
 }
 
 .delete-btn {
     background-color: #f44336;
+}
+.button-group {
+    display: flex;
+    gap: 10px;
 }
 
 .edit-btn:hover {
@@ -234,4 +236,20 @@ input[type="file"]::-webkit-file-upload-button:hover {
     justify-content: space-between; 
     align-items: center;
     width: 95%;
+}
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    margin-top: 2%;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
 }

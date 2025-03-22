@@ -57,6 +57,7 @@ $connection->close();
             <button class="container-btn" onclick="loadPage('users.php')">Uživatelé</button>
             <button class="container-btn" onclick="loadPage('blog.php')">Příspěvky</button>
             <button class="container-btn" onclick="loadPage('aktuality.php')">Aktuality</button>
+            <button class="container-btn" onclick="loadPage('galerie.php')">Galerie</button>
             <button class="container-btn" onclick="loadPage('sett.php')">Nastavení</button>
         </div>
 

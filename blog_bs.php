@@ -16,7 +16,7 @@
             <li><a href="index.php">Domů</a></li>
             <li><a href="" class="active" >Blog</a></li>
             <li><a href="aktuality_bs.php">Aktuality</a></li>
-            <li><a href="#">Galerie</a></li>
+            <li><a href="galerie_show.php">Galerie</a></li>
         </ul>
     </nav>
 

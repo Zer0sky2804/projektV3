@@ -15,6 +15,7 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
+    $title = htmlspecialchars($row["title"], ENT_QUOTES, 'UTF-8');
     $nadpis = htmlspecialchars($row["nadpis"], ENT_QUOTES, 'UTF-8');
     $image = htmlspecialchars($row["picture_name"], ENT_QUOTES, 'UTF-8');
 } else {
@@ -30,7 +31,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $nadpis; ?></title>
+    <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -40,9 +41,9 @@ $conn->close();
     <button class="menu-button" onclick="toggleSidenav()">Menu</button>
 
     <div class="sidenav" id="sidenav">
-        <a href="aktuality_bs.php">Aktuality</a>
         <a href="blog_bs.php">Blog</a>
-        <a href="#">Galerie</a>
+        <a href="aktuality_bs.php">Aktuality</a>
+        <a href="galerie_show.php">Galerie</a>
     </div>
 
     <script>
