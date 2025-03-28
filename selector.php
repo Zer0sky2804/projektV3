@@ -56,7 +56,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'users.php';
     <div class="main-content">
         <div class="container">
             <button class="container-btn" onclick="changePage('users.php')">Uživatelé</button>
-            <button class="container-btn" onclick="changePage('blog.php')">Příspěvky</button>
+            <button class="container-btn" onclick="changePage('blog.php')">Blogy</button>
             <button class="container-btn" onclick="changePage('aktuality.php')">Aktuality</button>
             <button class="container-btn" onclick="changePage('galerie.php')">Galerie</button>
             <button class="container-btn" onclick="changePage('sett.php')">Nastavení</button>
