@@ -10,7 +10,6 @@ if ($conn->connect_error) {
     die("Připojení k databázi selhalo: " . $conn->connect_error);
 }
 
-// Úprava uživatele
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id']) && isset($_POST['nickname']) && isset($_POST['email'])) {
     $user_id = intval($_POST['user_id']);
     $nickname = $_POST['nickname'];
@@ -26,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id']) && isset($
     }
 }
 
-// Mazání uživatele
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete' && isset($_POST['user_id'])) {
     $user_id = intval($_POST['user_id']);
     $sql = "DELETE FROM users WHERE user_id = ?";
@@ -82,7 +80,6 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-    <!-- Edit Modal -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEditModal()">&times;</span>
@@ -98,7 +95,6 @@ $result = $conn->query($sql);
         </div>
     </div>
 
-    <!-- Add User Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeAddUserModal">&times;</span>

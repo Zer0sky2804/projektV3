@@ -59,13 +59,12 @@ body {
 }
 
 .thumbnail {
-    width: 100px;  /* Malá velikost mimo modální okno */
+    width: 100px;  
     height: auto;
     border-radius: 5px;
     cursor: pointer;
 }
 
-/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -91,7 +90,7 @@ body {
 }
 
 .modal-content img {
-    width: 100%;  /* Velký obrázek uvnitř modálního okna */
+    width: 100%;  
     max-height: 80vh;
     border-radius: 5px;
 }

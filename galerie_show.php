@@ -9,17 +9,13 @@
 <body>
 
 <header>
-    <h1>Vítejte v sekci galerie</h1>
-</header>
-
-<nav>
-    <ul>
-        <li><a href="index.php">Domů</a></li>
-        <li><a href="blog_bs.php">Blog</a></li>
-        <li><a href="aktuality_bs.php">Aktuality</a></li>
-        <li><a href="" class="active">Galerie</a></li>
-    </ul>
-</nav>
+        <nav class="header-nav">
+            <a href="index.php">Home</a>
+            <a href="blog_bs.php" >Blog</a>
+            <a href="aktuality_bs.php">Aktuality</a>
+            <a href=""class="active">Galerie</a>
+        </nav>
+    </header>
 
 <div class="gallery-container">
     <?php

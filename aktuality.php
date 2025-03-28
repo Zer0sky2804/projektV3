@@ -51,7 +51,6 @@
         </div>
     </div>
 
-    <!-- Modal pro přidání aktuality -->
     <div id="addModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -68,7 +67,6 @@
         </div>
     </div>
 
-    <!-- Modal pro editaci aktuality -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -87,12 +85,10 @@
     </div>
 
     <script>
-        // Otevření modálního okna pro přidání aktuality
         document.getElementById('modalBtn').addEventListener('click', function() {
             document.getElementById('addModal').style.display = 'block';
         });
 
-        // Otevření modálního okna pro editaci aktuality
         document.querySelectorAll('.edit-btn').forEach(button => {
             button.addEventListener('click', function() {
                 document.getElementById('edit-id').value = this.dataset.id;
@@ -102,7 +98,6 @@
             });
         });
 
-        // Zavření modálních oken
         document.querySelectorAll('.close').forEach(closeBtn => {
             closeBtn.addEventListener('click', function() {
                 document.getElementById('addModal').style.display = 'none';

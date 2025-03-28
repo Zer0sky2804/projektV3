@@ -10,7 +10,7 @@
     <div class="table">
         <div class="header">
             <h2>Již přidané obrázky</h2>
-            <button id="modalBtn" class="open-modal-btn">Přidat obrázek</button>
+            <button id="modalBtn" class="open-modal-btn">Přidat obrázky</button>
         </div>
 
         <div class="posts-container">
@@ -37,8 +37,8 @@
                                 <div class='button-group'>
                                     <button class='view-image-btn' data-image='galerie_pics/" . htmlspecialchars($row['pictures_name']) . "'>Zobrazit obrázek</button>
                                     <button class='delete-btn' data-id='" . $row['galerie_id'] . "' onclick='deletePost(" . $row['galerie_id'] . ")'>Smazat</button>
-                                    </div>
                                 </div>
+                            </div>
                         </div>";
                 }
             } else {
@@ -50,19 +50,17 @@
         </div>
     </div>
 
-    <!-- Modal pro přidání obrázku -->
     <div id="addModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Přidat nový obrázek</h2>
+            <h2>Přidat nové obrázky</h2>
             <form action="add_image.php" method="POST" enctype="multipart/form-data">
-                <input type="file" name="image" required><br>
+                <input type="file" name="images[]" multiple required><br>
                 <button type="submit">Nahrát</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal pro zobrazení obrázku -->
     <div id="viewModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -96,19 +94,20 @@
                 }
             });
         }
+
         function deletePost(id) {
-    if (confirm('Opravdu chcete tento obrázek smazat?')) {
-        fetch('delete_image.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'id=' + id
-        }).then(response => response.text())
-          .then(data => {
-              alert(data);
-              location.reload();
-          }).catch(error => console.error('Chyba:', error));
-    }
-}
+            if (confirm('Opravdu chcete tento obrázek smazat?')) {
+                fetch('delete_image.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'id=' + id
+                }).then(response => response.text())
+                  .then(data => {
+                      alert(data);
+                      location.reload();
+                  }).catch(error => console.error('Chyba:', error));
+            }
+        }
     </script>
 </body>
 </html>

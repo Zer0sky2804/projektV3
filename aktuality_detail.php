@@ -8,13 +8,11 @@
 </head>
 <body>
     <?php
-    // Připojení k databázi
     $conn = new mysqli('localhost', 'root', '', 'projektv3');
     if ($conn->connect_error) {
         die("Připojení selhalo: " . $conn->connect_error);
     }
 
-    // Získání ID aktuality z URL
     $akt_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
     $sql = "SELECT title, text, `nazev-obr` FROM aktuailty WHERE akt_id = ?";
     $stmt = $conn->prepare($sql);

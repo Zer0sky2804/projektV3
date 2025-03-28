@@ -6,23 +6,23 @@
     <link rel="stylesheet" href="sett.css">
     <title>Nastavení</title>
     <script>
-        function updateTitle() {
-            let title = document.getElementById("main-title").value;
-            let messageBox = document.getElementById("message-box");
+        function updateField(fieldId, messageBoxId, fieldName) {
+            let fieldValue = document.getElementById(fieldId).value;
+            let messageBox = document.getElementById(messageBoxId);
 
-            if (title.trim() === "") {
-                messageBox.innerHTML = "⚠️ Nadpis nemůže být prázdný!";
+            if (fieldValue.trim() === "") {
+                messageBox.innerHTML = `⚠️ ${fieldName} nemůže být prázdný!`;
                 messageBox.style.color = "red";
                 return;
             }
 
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "update_title.php", true);
+            xhr.open("POST", "update_settings.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if (xhr.status == 200) {
-                        messageBox.innerHTML = "Nadpis byl úspěšně aktualizován!";
+                        messageBox.innerHTML = `${fieldName} byl úspěšně aktualizován!`;
                         messageBox.style.color = "green";
                     } else {
                         messageBox.innerHTML = "Chyba při aktualizaci.";
@@ -30,7 +30,7 @@
                     }
                 }
             };
-            xhr.send("title=" + encodeURIComponent(title));
+            xhr.send(`${fieldId}=` + encodeURIComponent(fieldValue));
         }
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -58,39 +58,41 @@
 
 <body>
     <div class="table">
-        <div class="section">
-            <h3>Description</h3>
-            <div class="input-container">
-                <input type="text" placeholder="Textbox 1">
-                <button>OK</button>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h3>Keywords</h3>
-            <div class="input-container">
-                <input type="text" placeholder="Textbox 2">
-                <button>OK</button>
-            </div>
-        </div>
+        <?php include 'load_settings.php'; ?>
 
         <div class="section">
             <h3>Title</h3>
             <div class="input-container">
-                <input type="text" placeholder="Textbox 1">
-                <button>OK</button>
+                <input type="text" id="title" value="<?= htmlspecialchars($currentTitle) ?>" placeholder="Zadejte title">
+                <button onclick="updateField('title', 'title-message-box', 'Title')">OK</button>
+                <p id="title-message-box"></p>
             </div>
         </div>
 
         <div class="section">
-            <h3>Hlavní stránka</h3>
+            <h3>Keywords</h3>
             <div class="input-container">
-                <?php
-                include 'load_title.php'; 
-                ?>
-                <input type="text" id="main-title" value="<?= htmlspecialchars($currentTitle) ?>" placeholder="Zadejte nadpis">
-                <button onclick="updateTitle()">OK</button>
-                <p id="message-box"></p> 
+                <input type="text" id="keywords" value="<?= htmlspecialchars($currentKeywords) ?>" placeholder="Zadejte keywords">
+                <button onclick="updateField('keywords', 'keywords-message-box', 'Keywords')">OK</button>
+                <p id="keywords-message-box"></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Description</h3>
+            <div class="input-container">
+                <input type="text" id="description" value="<?= htmlspecialchars($currentDescription) ?>" placeholder="Zadejte popis">
+                <button onclick="updateField('description', 'description-message-box', 'Description')">OK</button>
+                <p id="description-message-box"></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Hlavní nadpis</h3>
+            <div class="input-container">
+                <input type="text" id="nadpis" value="<?= htmlspecialchars($currentNadpis) ?>" placeholder="Zadejte hlavní nadpis">
+                <button onclick="updateField('nadpis', 'nadpis-message-box', 'Nadpis')">OK</button>
+                <p id="nadpis-message-box"></p>
             </div>
         </div>
 

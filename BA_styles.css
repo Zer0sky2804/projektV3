@@ -11,53 +11,42 @@ body {
 }
 
 header {
-    background-color: #333;
-    padding: 20px;
+    position: fixed;
+    top: 0;
     width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 25px 0;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-header h1 {
-    margin: 0;
-    font-size: 350%;
-}
-
-nav {
-    width: 100%;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+.header-nav {
     display: flex;
+    justify-content: right;
+    margin-right: 5%;
     gap: 20px;
-    background-color: #444;
-    padding: 10px;
-    justify-content: center;
-    width: 100%;
 }
 
-nav a {
-    color: #f5f5f5;
+.header-nav a {
+    color: white;
     text-decoration: none;
-    font-size: 150%;
-    padding: 5px 10px;
-    transition: background-color 0.3s ease;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    transition: background 0.3s;
 }
 
-nav a:hover {
-    background-color: #666;
+.header-nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 5px;
 }
+
 .active {
     background-color: #666;
     font-size: 150%;
     padding: 5px 10px;
     border-radius: 5px;
 }
-#blog-buttons,  #aktuality-buttons{
+
+#blog-buttons, #aktuality-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -65,6 +54,7 @@ nav a:hover {
     justify-content: flex-start;
     max-width: 100%;
     box-sizing: border-box;
+    margin-top: 5%;
 }
 
 button {
@@ -82,20 +72,16 @@ button:hover {
     background-color: #777;
 }
 
-
-
 main {
     padding: 20px;
     max-width: 1200px;
     text-align: center;
 }
 
-
-
 .article-content {
     background-color: #2a2a2a;
     padding: 20px;
-    margin-top: 20px;
+    margin-top: 7%;
     border-radius: 8px;
     max-width: 1200px;
     width: 100%;
@@ -117,6 +103,7 @@ main {
     max-height: 90vh;
     object-fit: contain;
 }
+
 .back-link {
     margin-top: 10px;
     text-align: center;
@@ -135,4 +122,96 @@ main {
 
 .back-link a:hover {
     background-color: #666;
+}
+
+#aktuality-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 5%; 
+}
+
+.aktualita {
+    width: 250px;
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.aktualita img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.aktualita p {
+    color: #ddd;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.aktualita button {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.aktualita button:hover {
+    background: #e68900;
+}
+
+#blog-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 5%; 
+}
+
+.blog-post{
+    width: 250px;
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.blog-post p {
+    color: #ddd;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.blog-post button {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.blog-post button:hover {
+    background: #e68900;
 }

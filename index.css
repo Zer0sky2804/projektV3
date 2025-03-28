@@ -28,46 +28,31 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.menu-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background-color: #333;
-    color: white;
-    padding: 10px 20px;
-    font-size: 1.5em;
-    cursor: pointer;
-    z-index: 1000;
-    border: none;
-    border-radius: 5px;
-}
-
-.sidenav {
+header {
     position: fixed;
     top: 0;
-    right: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: #444;
-    color: white;
-    padding: 20px;
-    transition: right 0.3s ease;
-    z-index: 999;
-}
-
-.sidenav a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    padding: 15px 0;
-    font-size: 1.2em;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 25px 0;
     text-align: center;
 }
 
-.sidenav a:hover {
-    background-color: #555;
+.header-nav {
+    display: flex;
+    justify-content: right;
+    margin-right: 5%;
+    gap: 20px;
 }
 
-.sidenav.active {
-    right: 0;
+.header-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    transition: background 0.3s;
+}
+
+.header-nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
 }

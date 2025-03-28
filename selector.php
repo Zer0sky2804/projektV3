@@ -30,8 +30,9 @@ if (isset($_SESSION['user_id'])) {
     $stmt->close();
 }
 
-
 $connection->close();
+
+$page = isset($_GET['page']) ? $_GET['page'] : 'users.php';
 ?>
 
 <!DOCTYPE html>
@@ -48,23 +49,25 @@ $connection->close();
             <h1>BlogPage</h1>
         </div>
         <div class="right">
-            <button class="btn" id="modalBtn">Open</button>
+            <button class="btn" id="ModalBtn"><p><?php echo $userName; ?></p></button>
         </div>
     </div>
 
     <div class="main-content">
         <div class="container">
-            <button class="container-btn" onclick="loadPage('users.php')">Uživatelé</button>
-            <button class="container-btn" onclick="loadPage('blog.php')">Příspěvky</button>
-            <button class="container-btn" onclick="loadPage('aktuality.php')">Aktuality</button>
-            <button class="container-btn" onclick="loadPage('galerie.php')">Galerie</button>
-            <button class="container-btn" onclick="loadPage('sett.php')">Nastavení</button>
+            <button class="container-btn" onclick="changePage('users.php')">Uživatelé</button>
+            <button class="container-btn" onclick="changePage('blog.php')">Příspěvky</button>
+            <button class="container-btn" onclick="changePage('aktuality.php')">Aktuality</button>
+            <button class="container-btn" onclick="changePage('galerie.php')">Galerie</button>
+            <button class="container-btn" onclick="changePage('sett.php')">Nastavení</button>
         </div>
 
-        <div class="content-display" id="content-display"></div>
+        <div class="content-display" id="content-display">
+            <?php include $page; ?>
+        </div>
     </div>
 
-    <div id="myModal" class="Modal">
+    <div id="mModal" class="Modal">
         <div class="modal_content">
             <span class="closed">&times;</span>
             <p><?php echo $userName; ?></p>  
@@ -72,6 +75,11 @@ $connection->close();
         </div>
     </div>
 
+    <script>
+        function changePage(page) {
+            window.location.href = '?page=' + page;
+        }
+    </script>
     <script src="selector.js"></script>
 </body>
 </html>

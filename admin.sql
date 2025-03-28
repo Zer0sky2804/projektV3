@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Pon 17. bře 2025, 22:54
+-- Vytvořeno: Pát 28. bře 2025, 01:14
 -- Verze serveru: 10.4.32-MariaDB
 -- Verze PHP: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `nadpis`, `picture_name`, `title`, `keywords`, `description`) VALUES
-(1, 'BlogPage', '20537488.jpg', '', '', '');
+(1, 'BlogPage', '20537488.jpg', 'BlogPage', 'blogy, aktuality', 'Stránka pro vytváření blogů.');
 
 --
 -- Indexy pro exportované tabulky

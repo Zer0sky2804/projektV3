@@ -1,43 +1,35 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
-    $targetDir = 'pictures/';
-    $fileName = basename($_FILES['image']['name']);
-    $targetFilePath = $targetDir . $fileName;
-    $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
-    
-    // Povolené formáty obrázků
-    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "projektv3";
 
-    if (in_array($fileType, $allowedTypes)) {
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
-            // Připojení k databázi
-            $servername = 'localhost';
-            $username = 'root';
-            $password = ''; // uprav dle potřeby
-            $dbname = 'projektv3';
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            if ($conn->connect_error) {
-                die('Connection failed: ' . $conn->connect_error);
-            }
-
-            // Přepsání názvu obrázku v tabulce admin, řádek s id 1
-            $stmt = $conn->prepare('UPDATE admin SET picture_name = ? WHERE id = 1');
-            $stmt->bind_param('s', $fileName);
-            if ($stmt->execute()) {
-                echo '✅ Obrázek byl úspěšně aktualizován.';
-            } else {
-                echo '❌ Chyba při aktualizaci obrázku.';
-            }
-            
-            $stmt->close();
-            $conn->close();
-        } else {
-            echo '❌ Chyba při nahrávání obrázku.';
-        }
-    } else {
-        echo '❌ Nepovolený formát souboru. Nahrávejte pouze obrázky (jpg, jpeg, png, gif, webp).';
-    }
+$conn = new mysqli($servername, $username, $password, $database);
+if ($conn->connect_error) {
+    die("Chyba připojení: " . $conn->connect_error);
 }
+
+if ($_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = "uploads/";
+    $filename = basename($_FILES['image']['name']);
+    $targetFilePath = $uploadDir . $filename;
+
+    if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFilePath)) {
+        $sql = "UPDATE settings SET image = ? WHERE id = 1";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $filename);
+        if ($stmt->execute()) {
+            echo "Obrázek byl úspěšně nahrán!";
+        } else {
+            echo "Chyba při ukládání do databáze.";
+        }
+        $stmt->close();
+    } else {
+        echo "Chyba při nahrávání souboru.";
+    }
+} else {
+    echo "Chyba při nahrávání souboru.";
+}
+
+$conn->close();
 ?>

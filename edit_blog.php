@@ -15,7 +15,6 @@ $title = $_POST['blog-title'];
 $content = $_POST['blog-content'];
 $imageName = "";
 
-// Zpracování nahrávání nového obrázku (pokud byl přidán)
 if (isset($_FILES['blog-image']) && $_FILES['blog-image']['error'] == 0) {
     $targetDir = "blog_pics/";
     $imageName = basename($_FILES['blog-image']['name']);
@@ -25,19 +24,16 @@ if (isset($_FILES['blog-image']) && $_FILES['blog-image']['error'] == 0) {
         die("Chyba při nahrávání obrázku.");
     }
 
-    // Aktualizace článku včetně nového obrázku
     $sql = "UPDATE blog SET title = ?, text = ?, `nazev-obr` = ? WHERE blog_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssi", $title, $content, $imageName, $blogId);
 } else {
-    // Aktualizace článku bez změny obrázku
     $sql = "UPDATE blog SET title = ?, text = ? WHERE blog_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssi", $title, $content, $blogId);
 }
 
 if ($stmt->execute()) {
-    // Přesměrování zpět na hlavní stránku
     header("Location: " . $_SERVER['HTTP_REFERER']);
     exit();
 } else {

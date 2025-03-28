@@ -48,7 +48,6 @@
             <?php $conn->close(); ?>
         </div>
     </div>
-<!-- Modal pro přidání článku -->
 <div id="addModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -68,7 +67,6 @@
 </div>
 
 
-    <!-- Modal pro editaci článku -->
 <div id="editModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
@@ -92,12 +90,10 @@
 
 
     <script>
-        // Otevření modálního okna pro přidání článku
         document.getElementById('modalBtn').addEventListener('click', function() {
             document.getElementById('addModal').style.display = 'block';
         });
 
-        // Otevření modálního okna pro editaci článku
         document.querySelectorAll('.edit-btn').forEach(button => {
             button.addEventListener('click', function() {
                 document.getElementById('edit-blog-id').value = this.dataset.id;
@@ -107,7 +103,6 @@
             });
         });
 
-        // Zavření modálního okna
         document.querySelectorAll('.close').forEach(closeBtn => {
             closeBtn.addEventListener('click', function() {
                 document.getElementById('addModal').style.display = 'none';
